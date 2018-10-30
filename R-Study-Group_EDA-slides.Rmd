@@ -1,0 +1,48 @@
+---
+title: "Exploratory Data Analysis"
+subtitle: "UBC R Study Group"
+output: ioslides_presentation
+author: "Aaron Quinton"
+date: "Oct. 31, 2018"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Acknowledgements
+
+- Online Text *R for Data Science* by Garrett Grolemund & Hadley Wickham  
+[R for Data Science Ch. 7 - EDA](https://r4ds.had.co.nz/exploratory-data-analysis.html)
+
+- The *Hass Avocado Board* and Justin Kiggins for compiling Avacado data  
+[Dataset csv download link on Kaggle](https://www.kaggle.com/neuromusic/avocado-prices/home)
+
+
+## Intro to Exploratory Data Analysis (EDA)
+
+EDA is a creative process with the purpose of **exploring** your data to generate quality questions. It is not quantitative but more qualitative in nature.
+
+>“There are no routine statistical questions, only questionable statistical routines.” — Sir David Cox  
+
+A good starting place for questions:  
+
+ - What type of variation occurs within my variables?  
+ - What type of covariation occurs between my variables?
+
+To answer these question its crucial to know if our data is Categorical or Numerical.
+
+## Before Getting Our Hands Dirty
+
+**Finding Data**
+
+- [Google Dataset Tool Search](https://toolbox.google.com/datasetsearch)
+- [Kaggle Datasets](https://www.kaggle.com/datasets)
+- [Awesome-Public-Dataset Repo](https://github.com/awesomedata/awesome-public-datasets)
+- Built in R Datasets or Dataset packages on CRAN. To see the list type `data()` in console
+  
+  
+  
+```{r cars, echo = TRUE}
+summary(cars)
+```
