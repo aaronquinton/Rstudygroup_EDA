@@ -62,7 +62,7 @@ avg_price_plot  +
     geom_density()
 
 avg_price_plot +
-    geom_boxplot()+
+    geom_boxplot() +
     coord_flip()
 
 avg_price_plot +
@@ -105,7 +105,7 @@ df %>%
 
 
 # cool functions/geoms for later
-ggplot2::ggplot(ggplot2::mpg,aes(class, hwy)) + geom_violin() + geom_quasirandom()
+ggplot2::ggplot(ggplot2::mpg,aes(class, hwy)) + geom_violin() + geom_jitter()
 # Generate fake data
 distro <- data.frame(
   'variable'=rep(c('runif','rnorm'),each=100),
