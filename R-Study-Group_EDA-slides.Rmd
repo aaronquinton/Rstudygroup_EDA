@@ -18,6 +18,7 @@ library(gridExtra)
 library(scales)
 library(forcats)
 
+
 #devtools::install_github('stephenturner/Tmisc')
 library(Tmisc)
 data(quartet)
@@ -188,9 +189,9 @@ grid.arrange(scatter2no, bin2d2no, ncol = 2)
 
 ```
 
-## Exploring More than Two Variables
+## Exploring More than Two Variables {.smaller}
 
-So far we primarily have been using position mapping and/or color mapping. But we are able to map more variables to the following aesthetics:
+So far we have been primarily been using position mapping and/or color mapping. But we are able to map more variables to the following aesthetics:
 
 |Aesthetic|Description|
 |---|---|
@@ -204,39 +205,18 @@ So far we primarily have been using position mapping and/or color mapping. But w
 |labels|Text on a plot or axes|
 |shape|Shape|
 
-## Continous Variable Visual Effectiveness
+## Categorical Visual Guide
 
-![](./Continuous-Visual-Guide)
-
-
----
-
-```{r}
-Facetscatter2plusno <- df %>%
-  ggplot(aes(x = avg_price_usd, y = tot_vol, col = type)) + 
-    geom_point(alpha = 0.3) +
-    facet_wrap(~region) +
-    scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
-                  labels = trans_format("log10", math_format(10^.x))) +
-    labs(title = "2+ Variables: Faceted Scatter Plot with Color", x = "Avg Avacado Price (USD)", y = "Total Volume")
-
-
+```{r, out.width = "500px"}
+knitr::include_graphics("Categorical-Visual-Guide.png")
 ```
 
-```{r More than Two Variables, echo = FALSE, fig.width=8, fig.height=4.5, dpi=300, out.width="800px", out.height="529px"}
+Image adapted by DataCamp from Wong,B, *Nat Met*, 7(9), 2010, p665
 
+## Continous Visual Guide 
 
-(quasirandom2plus <- df %>%
-    mutate(region = factor(region)) %>%
-    mutate(region = fct_reorder(region, avg_price_usd)) %>% 
-  ggplot(aes(y = avg_price_usd, x = region, col = type)) + 
-    geom_quasirandom(alpha = 0.3) +
-    coord_flip() +
-    labs(title = "2+ Variables: Swarm by Region and Type by Color", 
-         y = "Avg Avacado Price (USD)", x = "region"))
-    
-
-#grid.arrange(scatter2no, bin2d2no, ncol = 2)
-
+```{r, out.width = "750px"}
+knitr::include_graphics("./Continuous-Visual-Guide.png")
 ```
+Image adapted by DataCamp from Wong,B, *Nat Met*, 7(9), 2010, p665
 
