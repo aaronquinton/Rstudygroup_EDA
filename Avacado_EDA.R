@@ -1,12 +1,11 @@
 # Exploratory Data Analysis
-# (And some R studio IDE tips and tricks)
+# R study group live coding
 
 
 # Load libraries that we will use
 library(tidyverse)
 library(ggbeeswarm)
-library(lubridate)
-
+library(magrittr)
 
 # Getting Started:
 
@@ -14,12 +13,10 @@ library(lubridate)
 df <- read_csv("https://raw.githubusercontent.com/aaronquinton/Rstudygroup_EDA/master/Data/avocado.csv")
 
 
-# Let's look at our data:
+# Let's look at our data with built in functions:
 
 df
 str(df)
-
-#Go back and change to read_csv
 
 glimpse(df)
 
@@ -35,20 +32,23 @@ unique(df$type)
 unique(df$region)
 
 
-# Let's make the columns names more machine readable and select only the variables we want to look at.
+# Let's make the column names more machine readable and select only the variables we want to look at.
 
+# Can rename this way, not great
 df_test <- df
-
 colnames(df_test) <- c("sort_id", "Avg_Price", "Tot_Vol")
 
+
+# Better ways to rename using tidy verse functions.
 df <- rename(df, sort_id = X1)
 
 df <- select(df, date = Date, avg_price_usd = AveragePrice, 
              tot_vol = `Total Volume`, tot_bags = `Total Bags`, region, type)
 
 
-# Lets look at the avg Price
 
+# Lets look at the avg Price
+## Note, I am saving the plot as a object and adding different geoms to it as we go along.
 avg_price_plot <- df %>% 
   ggplot(aes(x = avg_price_usd))
     
@@ -62,7 +62,7 @@ avg_price_plot  +
     geom_density()
 
 avg_price_plot +
-    geom_boxplot() +
+    geom_boxplot(aes(x = 1 , y = avg_price_usd)) +
     coord_flip()
 
 avg_price_plot +
@@ -103,13 +103,14 @@ df %>%
   guides(col = FALSE)
 
 
+library(forcats)
 
-# cool functions/geoms for later
-ggplot2::ggplot(ggplot2::mpg,aes(class, hwy)) + geom_violin() + geom_jitter()
-# Generate fake data
-distro <- data.frame(
-  'variable'=rep(c('runif','rnorm'),each=100),
-  'value'=c(runif(100, min=-3, max=3), rnorm(100))
-)
-ggplot2::ggplot(distro,aes(variable, value)) + geom_quasirandom()
-ggplot2::ggplot(distro,aes(variable, value)) + geom_quasirandom(width=.1)
+(quasirandom2plus <- df %>%
+    mutate(region = factor(region)) %>%
+    mutate(region = fct_reorder(region, avg_price_usd)) %>% 
+    ggplot(aes(y = avg_price_usd, x = region, col = type)) + 
+    geom_quasirandom(alpha = 0.3) +
+    coord_flip() +
+    labs(title = "2+ Variables: Swarm by Region and Type by Color", 
+         y = "Avg Avacado Price (USD)", x = "region"))
+
