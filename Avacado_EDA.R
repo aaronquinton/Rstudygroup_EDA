@@ -90,19 +90,27 @@ df %>%
   ggplot(aes(x = region, y = avg_price_usd)) +
   geom_boxplot()  + coord_flip()
 
-df %>% 
-  ggplot(aes(y = avg_price_usd, x = region)) +
-    geom_quasirandom(aes(col = type), alpha = 0.5) +
-    coord_flip() +
-    guides(col = FALSE)
 
+# Two numerical Variables
+df %>% 
+  ggplot(aes(x = avg_price_usd, y = tot_vol)) +
+    geom_point(alpha = 0.1) +
+    scale_y_log10()
+
+df %>% 
+  ggplot(aes(x = avg_price_usd, y = tot_vol)) +
+    geom_bin2d() +
+    scale_y_log10()
+
+
+# How to plot EDA with 2+ Variables.
 df %>% 
   ggplot(aes(y = avg_price_usd, x = region)) +
   geom_quasirandom(aes(col = type), alpha = 0.5) +
   coord_flip() +
   guides(col = FALSE)
 
-
+## Lets order it by median life Exp.
 library(forcats)
 
 (quasirandom2plus <- df %>%
